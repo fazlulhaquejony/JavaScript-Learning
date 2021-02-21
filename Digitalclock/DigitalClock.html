@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>CodePen - jQuery Live Clock</title>
+  <style>
+    @font-face {
+      font-family: 'DIGITAL';
+      src: url("https://cssdeck.com/uploads/resources/fonts/digii/DS-DIGII.TTF");
+    }
+
+    html {
+      height: 100%;
+      background: radial-gradient(#000, #555);
+    }
+
+    .digital-clock {
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 600px;
+      height: 60px;
+      color: #ffffff;
+      border: 2px solid #999;
+      border-radius: 4px;
+      text-align: center;
+      font: 50px/60px 'DIGITAL', Helvetica;
+      background: -webkit-gradient(linear, left top, right top, from(#000), to(#555));
+      background: linear-gradient(90deg, #000, #555);
+    }
+  </style>
+</head>
+
+<body translate="no">
+  <div class="digital-clock">00:00:00</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script>
+    $(document).ready(function () {
+      clockUpdate();
+      setInterval(clockUpdate, 1000);
+    });
+
+    function clockUpdate() {
+      var date = new Date();
+      $('.digital-clock').css({ 'color': '#fff', 'text-shadow': '0 0 6px #ff0' });
+      var a ='AM';
+      function addZero(x) {
+        if (x < 10) {
+          return x = '0' + x;
+        } else {
+          return x;
+        }
+      }
+
+      function twelveHour(x) {
+        if (x > 12) {
+          a="PM"
+          return x = x - 12;
+        } else if (x == 0) {
+          return x = 12;
+        } else {
+          return x;
+        }
+      }
+
+      var h = addZero(twelveHour(date.getHours()));
+      var m = addZero(date.getMinutes());
+      var s = addZero(date.getSeconds());
+
+      $('.digital-clock').text(h + ':' + m + ':' + s + a);
+    }
+//# sourceURL=pen.js
+  </script>
+</body>
+
+</html>
